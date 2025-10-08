@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
-{% block title %}Всі задачі{% endblock%}
+{% block title %}Задача{% endblock%}
 {% block content %}
 <div class="container text-start my-3">
-  <a type="button" class="btn btn-outline-success" href="{% url 'tasks-create' %}">Створити задачу</a>
+  <a type="button" class="btn btn-outline-primary" href="{% url 'tasks-list' %}">Повернутись до всіх задач</a>
+  <a type="button" class="btn btn-outline-warning" href="{% url 'tasks-update' task.pk %}">Редагувати</a>
+  <a type="button" class="btn btn-outline-danger" href="{% url 'tasks-delete' task.pk %}">Видалити</a>
 </div>
-{% for task in tasks%}
+
 <div class="card mb-3">
   <ul class="list-group list-group-flush">
-    <li class="list-group-item"><a href="{% url 'tasks-detail' task.pk%}"><b>{{ task.name }}</b></a></li>
+    <li class="list-group-item"><b>{{ task.name }}</b></li>
     <li class="list-group-item">{{ task.description }}</li>
     <li class="list-group-item">{{ task.status }}</li>
     <li class="list-group-item">{{ task.priority }}</li>
@@ -19,5 +21,4 @@
   </ul>
 </div>
 
-{% endfor %}
 {% endblock %}
