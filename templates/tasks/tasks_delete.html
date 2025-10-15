@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Видалення задачі {{ task.name }}{% endblock%}
+{% block content %}
+<form method="POST" class="container text-start my-3">
+  {% csrf_token %}
+  <h3>Бажаєте видалити задачу {{ task.name }}?</h3>
+  <a type="button" class="btn btn-outline-primary" href="{% url 'tasks-detail' task.pk%}">Відмінити</a>
+  <button type="submit" class="btn btn-outline-danger">Видалити</button>
+</form>
+{% endblock %}

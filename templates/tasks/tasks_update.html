@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Зміна задачі{% endblock%}
+{% block content %}
+<form method="POST" class="my-3">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Змінити</button>
+
+</form>
+{% endblock %}

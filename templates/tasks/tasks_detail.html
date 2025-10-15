@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Задача{% endblock%}
+{% block title %}Задача{{ task.name }}{% endblock%}
 {% block content %}
 <div class="container text-start my-3">
   <a type="button" class="btn btn-outline-primary" href="{% url 'tasks-list' %}">Повернутись до всіх задач</a>

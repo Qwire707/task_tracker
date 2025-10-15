@@ -4,20 +4,23 @@
 <div class="container text-start my-3">
   <a type="button" class="btn btn-outline-success" href="{% url 'tasks-create' %}">Створити задачу</a>
 </div>
-{% for task in tasks%}
-<div class="card mb-3">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item"><a href="{% url 'tasks-detail' task.pk%}"><b>{{ task.name }}</b></a></li>
-    <li class="list-group-item">{{ task.description }}</li>
-    <li class="list-group-item">{{ task.status }}</li>
-    <li class="list-group-item">{{ task.priority }}</li>
-    {%if task.due_date %}
-    <li class="list-group-item">{{ task.due_date|date:"d M Y" }}</li>
-    {% endif %}
-    <li class="list-group-item">{{ task.created_at|date:"d M Y" }}</li>
-
-  </ul>
+<div class="row">
+  {% for task in tasks%}
+  <div class="col-sm-6 mb-3">
+    <div class="card border-3 border-primary">
+      <div class="card-body">
+        <h5 class="card-title"><a href="{% url 'tasks-detail' task.pk%}">{{ task.name }}</a></h5>
+        <p class="card-text">{{ task.description }}</p>
+        <span class="badge text-bg-primary">{{task.get_status_display}}</span>
+        <span class="badge text-bg-success">{{task.get_priority_display}}</span>
+        {%if task.due_date %}
+          <p>Дедлайн: {{ task.due_date|date:"d M Y" }}</p>
+          {% endif %}
+          <p>Створено: {{ task.created_at|date:"d M Y" }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 
-{% endfor %}
 {% endblock %}
