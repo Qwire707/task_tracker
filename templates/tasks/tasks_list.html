@@ -1,9 +1,23 @@
 {% extends 'base.html' %}
 {% block title %}Всі задачі{% endblock%}
 {% block content %}
-<div class="container text-start my-3">
-  <a type="button" class="btn btn-outline-success" href="{% url 'tasks-create' %}">Створити задачу</a>
+<div class="container my-3">
+    <div class="row align-items-center">
+        <div class="col-md-4 text-start">
+            <a type="button" class="btn btn-success" href="{% url 'tasks-create' %}">Створити задачу</a>
+        </div>
+        <div class="col-md-8">
+            <form method="GET" class="d-flex justify-content-end align-items-center gap-2">
+                {{ filter_form.status.label_tag }}
+                {{ filter_form.status }}
+                {{ filter_form.priority.label_tag }}
+                {{ filter_form.priority }}
+                <button type="submit" class="btn btn-primary">Фільтрувати</button>
+            </form>
+        </div>
+    </div>
 </div>
+
 <div class="row">
   {% for task in tasks%}
   <div class="col-sm-6 mb-3">
