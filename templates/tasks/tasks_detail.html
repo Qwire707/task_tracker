@@ -2,10 +2,38 @@
 {% block title %}Задача{{ task.name }}{% endblock%}
 {% block content %}
 <div class="container text-start my-3">
-  <a type="button" class="btn btn-outline-primary" href="{% url 'tasks-list' %}">Повернутись до всіх задач</a>
-  <a type="button" class="btn btn-outline-warning" href="{% url 'tasks-update' task.pk %}">Редагувати</a>
-  <a type="button" class="btn btn-outline-danger" href="{% url 'tasks-delete' task.pk %}">Видалити</a>
+  <a type="button" class="btn btn-primary" href="{% url 'tasks-list' %}">Повернутись до всіх задач</a>
+  <a type="button" class="btn btn-warning" href="{% url 'tasks-update' task.pk %}">Редагувати</a>
+  <a type="button" class="btn btn-danger" href="{% url 'tasks-delete' task.pk %}">Видалити</a>
 </div>
+
+<style>
+.card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+.list-group-item {
+  border: none;
+  padding: 14px 20px;
+  font-size: 15px;
+}
+.list-group-item:first-child {
+  font-weight: 600;
+  font-size: 17px;
+  background: #f9fafb;
+}
+.list-group-item:not(:first-child):hover {
+  background: #f6f8fa;
+}
+
+</style>
 
 <div class="card mb-3">
   <ul class="list-group list-group-flush">
@@ -13,24 +41,29 @@
     <li class="list-group-item">{{ task.description }}</li>
     <li class="list-group-item">{{ task.status }}</li>
     <li class="list-group-item">{{ task.priority }}</li>
-    {%if task.due_date %}
-    <li class="list-group-item">{{ task.due_date|date:"d M Y" }}</li>
+    {% if task.due_date %}
+      <li class="list-group-item text-muted">Дедлайн: {{ task.due_date|date:"d M Y" }}</li>
     {% endif %}
-    <li class="list-group-item">{{ task.created_at|date:"d M Y" }}</li>
-
+    <li class="list-group-item text-muted">Створено: {{ task.created_at|date:"d M Y" }}</li>
   </ul>
 </div>
 
-<div class="container text-start my-3">
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ comment_form.as_p }}
-    <button type="submit" class="btn btn-primary">Додати коментар</button>
-  </form>
+<div class="container my-4">
+  <div class="card shadow-sm p-4">
+    <h5 class="mb-3">💬 Додати коментар</h5>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ comment_form.as_p }}
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Надіслати</button>
+    </form>
+  </div>
+</div>
 
 <div class="container text-center">
     <div class="row">
-    <h2>Коментарі</h2>
+    <h2>Коментарі:</h2>
 </div>
 
 
@@ -43,8 +76,7 @@
     <p class="card-text">{{ comment.content }}</p>
   </div>
 </div>
-{% endfor %}
-
+    {% endfor %}
 </div>
 
 {% endblock %}

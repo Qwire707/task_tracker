@@ -5,6 +5,6 @@
   {% csrf_token %}
   <h3>Бажаєте видалити задачу {{ task.name }}?</h3>
   <a type="button" class="btn btn-outline-primary" href="{% url 'tasks-detail' task.pk%}">Відмінити</a>
-  <button type="submit" class="btn btn-outline-danger">Видалити</button>
+  <button type="button" class="btn btn-danger">Видалити</button>
 </form>
 {% endblock %}
